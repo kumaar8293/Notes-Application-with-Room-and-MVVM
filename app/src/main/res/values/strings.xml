@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Notes Application</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="priority">Priority :</string>
+    <string name="my_notes">My Notes</string>
+    <string name="dummy_text">This is a simple and awesome notepad app. It gives you a quick and simple notepad editing experience when you write notes.</string>
+    <string name="settings">Settings</string>
+    <string name="delete">Delete</string>
+    <string name="title_transition">titleTransition</string>
+    <string name="desc_transition">descriptionTransition</string>
+    <string name="please_add_some_notes">Please add some Notes</string>
+</resources>
