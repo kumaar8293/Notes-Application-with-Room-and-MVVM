@@ -28,23 +28,27 @@ public class NoteRepositories {
     }
 
     public void insertData(Note note) {
-        new InsertNoteTask(noteDao).execute(note);
+        //new InsertNoteTask(noteDao).execute(note);
+        new DatabaseTask(noteDao,1).execute(note);
     }
 
     public void updateData(Note note) {
 
-        new UpdateNoteTask(noteDao).execute(note);
+        //new UpdateNoteTask(noteDao).execute(note);
+        new DatabaseTask(noteDao,2).execute(note);
 
 
     }
 
     public void deleteData(Note note) {
-        new DeleteNoteTask(noteDao).execute(note);
+       // new DeleteNoteTask(noteDao).execute(note);
+        new DatabaseTask(noteDao,3).execute(note);
 
     }
 
     public void deleteAllData() {
-        new DeleteAllNotesTask(noteDao).execute();
+       // new DeleteAllNotesTask(noteDao).execute();
+        new DatabaseTask(noteDao,4).execute((Note) null);
 
     }
 
@@ -52,7 +56,46 @@ public class NoteRepositories {
         return allNotes;
     }
 
-    private static class InsertNoteTask extends AsyncTask<Note, Void, Void> {
+    private static class DatabaseTask extends AsyncTask<Note, Void, Void> {
+        NoteDao noteDao;
+        int type;
+
+        /**
+         * If type 1 : Insert
+         * type 2= update
+         * type 3= delete
+         * type 4= delete all
+         **/
+
+
+        DatabaseTask(NoteDao noteDao, int type) {
+            this.noteDao = noteDao;
+            this.type = type;
+        }
+
+        @Override
+        protected Void doInBackground(Note... notes) {
+
+            switch (type) {
+                case 1:
+                    noteDao.insertData(notes[0]);
+                    break;
+                case 2:
+                    noteDao.updateData(notes[0]);
+                    break;
+                case 3:
+                    noteDao.delete(notes[0]);
+                    break;
+                case 4:
+                    noteDao.deleteAllData();
+                    break;
+            }
+
+            return null;
+        }
+    }
+
+    /*private static class InsertNoteTask extends AsyncTask<Note, Void, Void> {
         NoteDao noteDao;
 
         InsertNoteTask(NoteDao noteDao) {
@@ -111,4 +154,5 @@ public class NoteRepositories {
             return null;
         }
     }
+*/
 }
